@@ -1,4 +1,4 @@
-react-ez-store
+react-store
 ===
 
 Easily share data across different React components. Like Redux or mobx, but dead simpler!
@@ -7,38 +7,41 @@ Easily share data across different React components. Like Redux or mobx, but dea
 
 ```bash
 # with yarn
-yarn add @francoisrv/react-ez-store
+yarn add @francoisv/react-store
 
 # with npm
-npm i -S @francoisrv/react-ez-store
+npm i -S @francoisv/react-store
 ```
 
 # Usage
 
-Use `Store` to define your data based on their type - and use `withStore` to attach a component to the stores.
+Use `Store` to define your data, based on their type - and use `withStore` to attach a `React` component to these stores.
 
 ```js
 import React from 'react'
-import { Store, withStore } from '@francoisrv/react-ez-store/Array'
+import { Store, withStore } from '@francoisv/react-store'
 
 // The stores
-const todosStore = new Store.Array([{ name: 'Buy milk' }])
+const todos = new Store.Array(['Buy milk'])
 const newName = new Store.String('')
 
 // The Component, wrapped in withStore
-const Todos = withStore(todosStore, newName)(() => (
+const Todos = withStore(todos, newName)(() => (
   <div>
+
     { /* list of todos */ }
-    { todosStore.get().map(todo => (
-      <div key={ todo.name }>{ todo.name }</div>
+    { todos.get().map((todo, index) => (
+      <div key={ index }>{ todo }</div>
     ))}
+
     { /* state value for controlled input */ }
     <input
       value={ newName.get() }
       onChange={ event => newName.set(event.target.value) }
     />
+
     { /* add todo */ }
-    <button onClick={ () => todosStore.push({ name: newName.get() }) }>
+    <button onClick={ () => todos.push(newName.get()) }>
       Add
     </button>
   </div>
