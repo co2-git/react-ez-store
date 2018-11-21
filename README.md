@@ -25,27 +25,39 @@ import { Store, withStore } from '@francoisv/react-store'
 const todos = new Store.Array(['Buy milk'])
 const newName = new Store.String('')
 
-// The Component, wrapped in withStore
-const Todos = withStore(todos, newName)(() => (
+// List component
+const List = withStore(todos)(() => (
   <div>
-
-    { /* list of todos */ }
     { todos.get().map((todo, index) => (
       <div key={ index }>{ todo }</div>
-    ))}
-
-    { /* state value for controlled input */ }
-    <input
-      value={ newName.get() }
-      onChange={ event => newName.set(event.target.value) }
-    />
-
-    { /* add todo */ }
-    <button onClick={ () => todos.push(newName.get()) }>
-      Add
-    </button>
+    )) }
   </div>
 ))
+
+// New todo
+const NewTodo = withStore(newName)(() => (
+  <input
+    value={ newName.get() }
+    onChange={ event => newName.set(event.target.value) }
+  />
+))
+
+// Add todo
+// We don't need withStore here because we don't want to reload the view
+const AddButton = (
+  <button onClick={ () => todos.push(newName.get()) }>
+    Add
+  </button>
+)
+
+// Tada!
+const Todos = (
+  <div>
+    <List />
+    <NewTodo />
+    <AddButton />
+  </div>
+)
 ```
 
 # Types
