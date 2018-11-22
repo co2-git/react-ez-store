@@ -3,11 +3,11 @@ import Store from './Store'
 export type NumberStoreType = { value: number }
 
 export default class NumberStore extends Store {
-  private original = 0
+  public original = 0
 
-  private value = 0
+  public value = 0
 
-  public constructor(num: number) {
+  public constructor(num: number = 0) {
     super()
     this.original = num
     this.value = num

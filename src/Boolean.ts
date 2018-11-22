@@ -3,11 +3,11 @@ import Store from './Store'
 export type BooleanStoreType = { value: boolean }
 
 export default class BooleanStore extends Store {
-  private original: boolean
+  public original: boolean
 
-  private value: boolean
+  public value: boolean
 
-  public constructor(bool: boolean) {
+  public constructor(bool: boolean = true) {
     super()
     this.original = bool
     this.value = bool

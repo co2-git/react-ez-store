@@ -3,11 +3,11 @@ import Store from './Store'
 export type StringStoreType = { value: string }
 
 export default class StringStore extends Store {
-  private original = ''
+  public original = ''
 
-  private value = ''
+  public value = ''
 
-  public constructor(str: string) {
+  public constructor(str: string = '') {
     super()
     this.original = str
     this.value = str

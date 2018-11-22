@@ -2,11 +2,11 @@ import Store from './Store'
 export type ArrayStoreType = { value: any[] }
 
 export default class ArrayStore extends Store {
-  private original: any[]
+  public original: any[]
 
-  private value: any[]
+  public value: any[]
 
-  public constructor(array: any[]) {
+  public constructor(array: any[] = []) {
     super()
     this.original = [...array]
     this.value = array

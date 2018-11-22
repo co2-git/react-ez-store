@@ -7,11 +7,11 @@ export interface TObject {
 export type ObjectStoreType = { value: TObject }
 
 export default class ObjectStore extends Store {
-  private original = {}
+  public original = {}
 
-  private value = {}
+  public value = {}
 
-  public constructor(obj: TObject) {
+  public constructor(obj: TObject = {}) {
     super()
     this.original = { ...obj }
     this.value = { ...obj }
