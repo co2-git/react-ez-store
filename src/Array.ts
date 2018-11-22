@@ -1,12 +1,12 @@
 import Store from './Store'
-export type ArrayStoreType = { value: any[] }
+export type ArrayStoreType<T> = { value: T[] }
 
-export default class ArrayStore extends Store {
-  public original: any[]
+export default class ArrayStore<T extends any> extends Store {
+  public original: T[]
 
-  public value: any[]
+  public value: T[]
 
-  public constructor(array: any[] = []) {
+  public constructor(array: T[] = []) {
     super()
     this.original = [...array]
     this.value = array
@@ -19,12 +19,12 @@ export default class ArrayStore extends Store {
 
   public get = () => [...this.value]
 
-  public set = async (array: any[]) => {
+  public set = async (array: T[]) => {
     this.value = array
     await this.update()
   }
 
-  public push = async (...items: any[]) => {
+  public push = async (...items: T[]) => {
     this.value.push(...items)
     await this.update()
   }
