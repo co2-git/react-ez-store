@@ -1,14 +1,21 @@
 import Store from './Store'
 
+type ObjectStoreValue<T> = | T | {} | null
+
 export default class ObjectStore<T> extends Store {
-  public original: T | {} = {}
+  public original: ObjectStoreValue<T>
 
-  public value: T | {}
+  public value: ObjectStoreValue<T>
 
-  public constructor(obj: T | {} = {}) {
+  public constructor(obj: ObjectStoreValue<T> = {}) {
     super()
-    this.original = { ...(obj as object) }
-    this.value = { ...(obj as object) }
+    if (obj === null) {
+      this.original = null
+      this.value = null
+    } else {
+      this.original = { ...Object(obj) }
+      this.value = { ...Object(obj) }
+    }
   }
 
   public reset = async () => {

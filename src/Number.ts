@@ -1,13 +1,15 @@
 import Store from './Store'
 
-export type NumberStoreType = { value: number }
+type NumberStoreValue = number | null
+
+export type NumberStoreType = { value: NumberStoreValue }
 
 export default class NumberStore extends Store {
-  public original = 0
+  public original: NumberStoreValue
 
-  public value = 0
+  public value: NumberStoreValue
 
-  public constructor(num: number = 0) {
+  public constructor(num: NumberStoreValue = 0) {
     super()
     this.original = num
     this.value = num
@@ -26,22 +28,30 @@ export default class NumberStore extends Store {
   }
 
   public add = async (step: number = 1) => {
-    this.value = this.value + step
-    await this.update()
+    if (typeof this.value === 'number') {
+      this.value = this.value + step
+      await this.update()
+    }
   }
 
   public subtract = async (step: number = 1) => {
-    this.value = this.value - step
-    await this.update()
+    if (typeof this.value === 'number') {
+      this.value = this.value - step
+      await this.update()
+    }
   }
 
   public multiply = async (step: number) => {
-    this.value = this.value * step
-    await this.update()
+    if (typeof this.value === 'number') {
+      this.value = this.value * step
+      await this.update()
+    }
   }
 
   public divide = async (step: number) => {
-    this.value = this.value / step
-    await this.update()
+    if (typeof this.value === 'number') {
+      this.value = this.value / step
+      await this.update()
+    }
   }
 }
