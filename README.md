@@ -163,7 +163,6 @@ const getTodos = async () => {
     const todos = await response.json()
     await todos.push(...todos)
     await fetchStatus.set(DONE)
-    return json
   } catch (error) {
     await fetchError.set(error)
   }
