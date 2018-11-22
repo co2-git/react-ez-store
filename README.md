@@ -167,7 +167,7 @@ const List = withStore(todos, fetchStatus, fetchError)(() => {
       </ul>
     )
   }
-  // If here is reached, means that we need to call the request
+  /* If here is reached, means that we need to call the request */
   setTimeout(getTodos)
   return <div>Loading...</div>
 })
