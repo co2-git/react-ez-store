@@ -31,6 +31,38 @@ const View = withStore(email)(() => (
 
 # Examples
 
+## Click counter
+
+```jsx
+import React from 'react'
+import store, { withStore } from '@francoisv/react-store'
+
+const counter = store(Number)
+
+const ClickCounter = withStore(counter)(() => (
+  <div>
+    <div>Clicked { counter.get() } times</div>
+    <button onClick={ counter.add }>Click</button>
+  </div>
+))
+```
+
+## Auth
+
+```jsx
+import React from 'react'
+import store, { withStore } from '@francoisv/react-store'
+
+const token = store(String, localStorage.getItem('TOKEN'))
+
+const App = withStore(token)(() => (
+  <div>
+    { !token.get() && <Login /> }
+    { !!token.get() && <button onClick={ token.reset }>Sign out</button> }
+  </div>
+))
+```
+
 ## Todo App
 
 ```jsx
@@ -111,22 +143,6 @@ return (
 )
 ```
 
-## Click counter
-
-```jsx
-import React from 'react'
-import store, { withStore } from '@francoisv/react-store'
-
-const counter = store(Number)
-
-const ClickCounter = withStore(counter)(() => (
-  <div>
-    <div>Clicked { counter.get() } times</div>
-    <button onClick={ counter.add }>Click</button>
-  </div>
-))
-```
-
 ## With back-end
 
 ```jsx
@@ -171,22 +187,6 @@ const List = withStore(todos, fetchStatus, fetchError)(() => {
   setTimeout(getTodos)
   return <div>Loading...</div>
 })
-```
-
-## Auth
-
-```jsx
-import React from 'react'
-import store, { withStore } from '@francoisv/react-store'
-
-const token = store(String, localStorage.getItem('TOKEN'))
-
-const App = withStore(token)(() => (
-  <div>
-    { !token.get() && <Login /> }
-    { !!token.get() && <button onClick={ token.reset }>Sign out</button> }
-  </div>
-))
 ```
 
 # Types
