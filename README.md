@@ -144,7 +144,8 @@ const getTodos = async () => {
   try {
     await fetchStatus.set(FETCHING)
     const response = await fetch('http://examle.com/todos')
-    const json = await response.json()
+    const todos = await response.json()
+    await todos.push(...todos)
     await fetchStatus.set(DONE)
     return json
   } catch (error) {
