@@ -127,6 +127,67 @@ const ClickCounter = withStore(counter)(() => (
 ))
 ```
 
+## With back-end
+
+```jsx
+import React from 'react'
+import store, { withStore } from '@francoisv/react-store'
+
+const FETCHING = 0
+const DONE = 1
+
+const todos = store(Array)
+const fetchStatus = store(Number)
+const fetchError = store(Error)
+
+const getTodos = async () => {
+  try {
+    await fetchStatus.set(FETCHING)
+    const response = await fetch('http://examle.com/todos')
+    const json = await response.json()
+    await fetchStatus.set(DONE)
+    return json
+  } catch (error) {
+    await fetchError.set(error)
+  }
+}
+
+const List = withStore(todos, fetchStatus, fetchError)(() => {
+  if (fetchError.isError()) {
+    return <div>{ fetchError.get().message }</div>
+  }
+  if (fetchStatus.get() === FETCHING) {
+    return <div>Loading...</div>
+  }
+  if (fetchStatus.get() === DONE) {
+    return (
+      <ul>
+        { todos.get().map(todo => <li key={ todo.id }>{ todo.name }</li>) }
+      </ul>
+    )
+  }
+  // If here is reached, means that we need to call the request
+  setTimeout(getTodos)
+  return <div>Loading...</div>
+})
+```
+
+## Auth
+
+```jsx
+import React from 'react'
+import store, { withStore } from '@francoisv/react-store'
+
+const token = store(String, localStorage.getItem('TOKEN'))
+
+const App = withStore(token)(() => (
+  <div>
+    { !token.get() && <Login /> }
+    { !!token.get() && <button onClick={ token.reset }>Sign out</button> }
+  </div>
+))
+```
+
 # Types
 
 You can see [here](https://github.com/co2-git/react-ez-store/tree/master/src) the list of the different supported types.
