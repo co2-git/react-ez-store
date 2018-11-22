@@ -58,6 +58,10 @@ const Todos = (
     <AddButton />
   </div>
 )
+
+// You could also use more than one store
+
+const Todos = withStore(store1, store2, ...storeN)(Component)
 ```
 
 # Types
