@@ -15,7 +15,7 @@ npm i -S @francoisv/react-store
 
 # Example
 
-```js
+```jsx
 import React from 'react'
 import store, { withStore } from '@francoisv/react-store'
 
@@ -33,7 +33,7 @@ const View = withStore(email)(() => (
 
 ## Todo App
 
-```js
+```jsx
 import React from 'react'
 import store, { withStore } from '@francoisv/react-store'
 
@@ -113,7 +113,7 @@ return (
 
 ## Click counter
 
-```js
+```jsx
 import React from 'react'
 import store, { withStore } from '@francoisv/react-store'
 
