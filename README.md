@@ -97,7 +97,7 @@ const AddTodo = withStore(newTodo)(() => (
       value={ newTodo.get() }
       onChange={ event => newTodo.set(event.target.value) }
     />
-    <button type="button" onClick={ () => addTod(newTodo.get()) }>
+    <button type="button" onClick={ () => addTodo(newTodo.get()) }>
       Add
     </button>
   </form>
