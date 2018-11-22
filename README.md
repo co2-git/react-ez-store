@@ -19,11 +19,11 @@ Use `Store` to define your data, based on their type - and use `withStore` to at
 
 ```js
 import React from 'react'
-import { Store, withStore } from '@francoisv/react-store'
+import { store, withStore } from '@francoisv/react-store'
 
 // The stores
-const todos = new Store.Array(['Buy milk'])
-const newName = new Store.String('')
+const todos = store(Array, ['Buy milk'])
+const newName = store(String)
 
 // List component
 const List = withStore(todos)(() => (
