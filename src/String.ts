@@ -9,7 +9,7 @@ export default class StringStore extends Store {
 
   public value: string
 
-  public _enum: string[] = []
+  public _oneOf: string[] = []
 
   public constructor(str: string = '') {
     super()
@@ -22,8 +22,8 @@ export default class StringStore extends Store {
     await this.update()
   }
 
-  public enum = async (...args: string[]) => {
-    this._enum = args
+  public oneOf = async (...args: string[]) => {
+    this._oneOf = args
     return this
   }
 
@@ -32,8 +32,8 @@ export default class StringStore extends Store {
   public isNull = () => this.value === null
 
   public set = async (str: string) => {
-    if (this._enum.length && !includes(this._enum, str)) {
-      throw new Error(`String "${ str }" is not in list ${ this._enum.join(' ') }`)
+    if (this._oneOf.length && !includes(this._oneOf, str)) {
+      throw new Error(`String "${ str }" is not in list ${ this._oneOf.join(' ') }`)
     }
     this.value = str
     await this.update()

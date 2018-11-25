@@ -10,7 +10,7 @@ export default class NumberStore extends Store {
 
   public value: NumberStoreValue
 
-  public _enum: NumberStoreValue[] = []
+  public _oneOf: NumberStoreValue[] = []
 
   public constructor(num: NumberStoreValue = 0) {
     super()
@@ -18,8 +18,8 @@ export default class NumberStore extends Store {
     this.value = num
   }
 
-  public enum = async (...args: number[]) => {
-    this._enum = args
+  public oneOf = async (...args: number[]) => {
+    this._oneOf = args
     return this
   }
 
@@ -33,8 +33,8 @@ export default class NumberStore extends Store {
   public isNull = () => this.value === null
 
   public set = async (num: number) => {
-    if (this._enum.length && !includes(this._enum, num)) {
-      throw new Error(`Number ${ num } is not in list ${ this._enum.join(' ') }`)
+    if (this._oneOf.length && !includes(this._oneOf, num)) {
+      throw new Error(`Number ${ num } is not in list ${ this._oneOf.join(' ') }`)
     }
     this.value = num
     await this.update()
