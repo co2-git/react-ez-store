@@ -1,10 +1,9 @@
 {
   "name": "@francoisv/react-store",
-  "version": "1.0.13",
+  "version": "1.0.24",
   "main": "dist/index.js",
   "license": "MIT",
   "dependencies": {
-    "@francoisv/react-store": "^1.0.11",
     "@types/lodash.forin": "^4.4.4",
     "@types/node": "^10.12.9",
     "@types/react": "^16.7.6",

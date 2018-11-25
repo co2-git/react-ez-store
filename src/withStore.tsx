@@ -10,7 +10,7 @@ export type StoreType =
   | ((props: any) => StoreList)
 
 const withStore = (...stores: StoreType[]) => (Component: any) =>
-  class WithStoreWrapper extends React.PureComponent<any, { updates: number }> {
+  class WithStoreWrapper extends React.Component<any, { updates: number }> {
     public static displayName = Component.displayName || Component.name
 
     public state = { updates: 0 }
@@ -35,10 +35,11 @@ const withStore = (...stores: StoreType[]) => (Component: any) =>
     }
 
     public getStoresFromState = (state: StoreList) => {
-      forIn(state, store => {
+      forIn(state, (store, key) => {
         if (store instanceof Store) {
           store.elements.push(this)
           this.stores.push(store)
+          this.stateProps[key] = store
         } else if (typeof store === 'object') {
           this.getStoresFromState(store)
         }
@@ -46,7 +47,7 @@ const withStore = (...stores: StoreType[]) => (Component: any) =>
     }
 
     public componentWillUnmount() {
-      this.unmounted = false
+      this.unmounted = true
       for (const store of this.stores) {
         store.clean()
       }

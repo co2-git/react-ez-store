@@ -31,9 +31,15 @@ export default class ArrayStore<T extends any> extends Store {
 
   public get = () => this.value === null ? null : [...this.value]
 
+  public isNull = () => this.value === null
+
   public set = async (array: ArrayStoreValue<T>) => {
     this.value = array
     await this.update()
+  }
+
+  public replace = async (array: ArrayStoreValue<T>) => {
+    this.value = array
   }
 
   public push = async (...items: any[]) => {

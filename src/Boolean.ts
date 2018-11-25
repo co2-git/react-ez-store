@@ -18,11 +18,17 @@ export default class BooleanStore extends Store {
     await this.update()
   }
 
+  public isNull = () => this.value === null
+
   public get = () => this.value
 
   public set = async (bool: boolean) => {
     this.value = bool
     await this.update()
+  }
+
+  public replace = async (bool: boolean) => {
+    this.value = bool
   }
 
   public toggle = async () => {

@@ -22,6 +22,12 @@ export default class ErrorStore extends Store {
 
   public isError = () => (this.value instanceof Error)
 
+  public isNull = () => this.value === null
+
+  public replace = async (error: ErrorStoreValue) => {
+    this.value = error
+  }
+
   public get = () => this.value
 
   public set = async (error: Error) => {

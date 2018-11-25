@@ -25,6 +25,12 @@ export default class ObjectStore<T> extends Store {
 
   public get = () => this.value
 
+  public isNull = () => this.value === null
+
+  public replace = async (obj: T) => {
+    this.value = obj
+  }
+
   public set = async (obj: T) => {
     this.value = obj
     await this.update()

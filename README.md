@@ -29,6 +29,18 @@ const View = withStore(email)(() => (
 ))
 ```
 
+## Encapsulate store
+
+Sometimes, you want to encapsulate a store so it can be created for a local scope.
+You can use functions for that. The object you declared will be in the props
+
+```jsx
+import React from 'react'
+import store, { withStore } from '@francoisv/react-store'
+
+const users
+```
+
 # Examples
 
 ## Click counter

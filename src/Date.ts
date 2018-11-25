@@ -29,6 +29,10 @@ export default class DateStore extends Store {
     await this.update()
   }
 
+  public replace = async (date: Date) => {
+    this.value = date
+  }
+
   public unset = async () => {
     this.value = null
     await this.update()
