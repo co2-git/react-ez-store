@@ -18,7 +18,7 @@ export default class NumberStore extends Store {
     this.value = num
   }
 
-  public oneOf = async (...args: number[]) => {
+  public oneOf = (...args: number[]) => {
     this._oneOf = args
     return this
   }

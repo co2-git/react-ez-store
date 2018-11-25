@@ -22,7 +22,7 @@ export default class StringStore extends Store {
     await this.update()
   }
 
-  public oneOf = async (...args: string[]) => {
+  public oneOf = (...args: string[]) => {
     this._oneOf = args
     return this
   }
