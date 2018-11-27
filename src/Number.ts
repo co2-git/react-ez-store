@@ -1,5 +1,11 @@
+import first from 'lodash.first'
+import last from 'lodash.last'
+import includes from 'lodash.includes'
+import isArray from 'lodash.isarray'
+import isUndefined from 'lodash.isundefined'
+import isNumber from 'lodash.isnumber'
+
 import Store from './Store'
-import { includes } from 'lodash';
 
 type NumberStoreValue = number | null
 
@@ -12,13 +18,27 @@ export default class NumberStore extends Store {
 
   public _oneOf: NumberStoreValue[] = []
 
-  public constructor(num: NumberStoreValue = 0) {
+  public constructor(num: NumberStoreValue | NumberStoreValue[] = 0, defaultValue?: 'first' | 'last' | number) {
     super()
-    this.original = num
-    this.value = num
+    if (isArray(num)) {
+      let val: NumberStoreValue = null
+      if (isUndefined(defaultValue) || defaultValue === 'first') {
+        val = first(num) || null
+      } else if (defaultValue === 'last') {
+        val = last(num) || null
+      } else if (isNumber(defaultValue)) {
+        val = defaultValue
+      }
+      this.original = val
+      this.value = val
+      this.oneOf(...num)
+    } else {
+      this.original = num
+      this.value = num
+    }
   }
 
-  public oneOf = (...args: number[]) => {
+  public oneOf = (...args: Array<number | null>) => {
     this._oneOf = args
     return this
   }

@@ -1,20 +1,39 @@
-import { isArray, includes } from 'lodash'
+import first from 'lodash.first'
+import last from 'lodash.last'
+import includes from 'lodash.includes'
+import isArray from 'lodash.isarray'
+import isUndefined from 'lodash.isundefined'
+import isNumber from 'lodash.isnumber'
 
 import Store from './Store'
 
 export type StringStoreType = { value: string }
 
 export default class StringStore extends Store {
-  public original: string
+  public original: string | null
 
-  public value: string
+  public value: string | null
 
-  public _oneOf: string[] = []
+  public _oneOf: Array<string | null> = []
 
-  public constructor(str: string = '') {
+  public constructor(str: string | null | Array<string | null> = '', defVal: 0 | -1 | string) {
     super()
-    this.original = str
-    this.value = str
+    if (isArray(str)) {
+      let val = null
+      if (str.length) {
+        if (isUndefined(defVal) || defVal === 0) {
+          val = first(str) || null
+        } else if (defVal === -1) {
+          val = last(str) || null
+        }
+      }
+      this.original = val
+      this.value = val
+      this.oneOf(...str)
+    } else {
+      this.original = str
+      this.value = str
+    }
   }
 
   public reset = async () => {
@@ -22,7 +41,7 @@ export default class StringStore extends Store {
     await this.update()
   }
 
-  public oneOf = (...args: string[]) => {
+  public oneOf = (...args: Array<string | null>) => {
     this._oneOf = args
     return this
   }
