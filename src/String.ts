@@ -9,6 +9,9 @@ import Store from './Store'
 export type StringStoreType = { value: string }
 
 export default class StringStore extends Store {
+  public static USE_FIRST = 0
+  public static USE_LAST = -1
+
   public original: string | null
 
   public value: string | null
@@ -20,9 +23,9 @@ export default class StringStore extends Store {
     if (isArray(str)) {
       let val = null
       if (str.length) {
-        if (defVal === 0) {
+        if (defVal === StringStore.USE_FIRST) {
           val = first(str) || null
-        } else if (defVal === -1) {
+        } else if (defVal === StringStore.USE_LAST) {
           val = last(str) || null
         } else if (isString(defVal)) {
           val = defVal

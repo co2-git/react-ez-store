@@ -11,6 +11,9 @@ type NumberStoreValue = number | null
 export type NumberStoreType = { value: NumberStoreValue }
 
 export default class NumberStore extends Store {
+  public static USE_FIRST = 'first'
+  public static USE_LAST = 'last'
+
   public original: NumberStoreValue
 
   public value: NumberStoreValue
@@ -21,9 +24,9 @@ export default class NumberStore extends Store {
     super()
     if (isArray(num)) {
       let val: NumberStoreValue = null
-      if (defaultValue === 'first') {
+      if (defaultValue === NumberStore.USE_FIRST) {
         val = first(num) || null
-      } else if (defaultValue === 'last') {
+      } else if (defaultValue === NumberStore.USE_LAST) {
         val = last(num) || null
       } else if (isNumber(defaultValue)) {
         val = defaultValue
