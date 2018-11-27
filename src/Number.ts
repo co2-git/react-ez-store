@@ -2,7 +2,6 @@ import first from 'lodash.first'
 import last from 'lodash.last'
 import includes from 'lodash.includes'
 import isArray from 'lodash.isarray'
-import isUndefined from 'lodash.isundefined'
 import isNumber from 'lodash.isnumber'
 
 import Store from './Store'
@@ -22,7 +21,7 @@ export default class NumberStore extends Store {
     super()
     if (isArray(num)) {
       let val: NumberStoreValue = null
-      if (isUndefined(defaultValue) || defaultValue === 'first') {
+      if (defaultValue === 'first') {
         val = first(num) || null
       } else if (defaultValue === 'last') {
         val = last(num) || null

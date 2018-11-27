@@ -2,8 +2,7 @@ import first from 'lodash.first'
 import last from 'lodash.last'
 import includes from 'lodash.includes'
 import isArray from 'lodash.isarray'
-import isUndefined from 'lodash.isundefined'
-import isNumber from 'lodash.isnumber'
+import isString from 'lodash.isstring'
 
 import Store from './Store'
 
@@ -21,10 +20,12 @@ export default class StringStore extends Store {
     if (isArray(str)) {
       let val = null
       if (str.length) {
-        if (isUndefined(defVal) || defVal === 0) {
+        if (defVal === 0) {
           val = first(str) || null
         } else if (defVal === -1) {
           val = last(str) || null
+        } else if (isString(defVal)) {
+          val = defVal
         }
       }
       this.original = val

@@ -32,9 +32,9 @@
   dependencies:
     "@types/lodash" "*"
 
-"@types/lodash.isundefined@^3.0.4":
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/@types/lodash.isundefined/-/lodash.isundefined-3.0.4.tgz#00c7ff67a6b0a4e19d9b64f0d476deaa656088aa"
+"@types/lodash.isstring@^4.0.4":
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/@types/lodash.isstring/-/lodash.isstring-4.0.4.tgz#d049735cd098c39227a9974068b61c874ac107bc"
   dependencies:
     "@types/lodash" "*"
 
@@ -95,9 +95,9 @@ lodash.isnumber@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz#3ce76810c5928d03352301ac287317f11c0b1ffc"
 
-lodash.isundefined@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/lodash.isundefined/-/lodash.isundefined-3.0.1.tgz#23ef3d9535565203a66cefd5b830f848911afb48"
+lodash.isstring@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/lodash.isstring/-/lodash.isstring-4.0.1.tgz#d527dfb5456eca7cc9bb95d5daeaf88ba54a5451"
 
 lodash.last@^3.0.0:
   version "3.0.0"
