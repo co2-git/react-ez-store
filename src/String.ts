@@ -45,6 +45,8 @@ export default class StringStore extends Store {
     await this.update()
   }
 
+  public is = (val: string | null) => this.get() === val
+
   public oneOf = (...args: Array<string | null>) => {
     this._oneOf = args
     return this

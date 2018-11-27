@@ -45,6 +45,8 @@ export default class NumberStore extends Store {
     return this
   }
 
+  public is = (val: number | null) => this.get() === val
+
   public reset = async () => {
     this.value = this.original
     await this.update()
