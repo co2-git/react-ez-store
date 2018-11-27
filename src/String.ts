@@ -18,7 +18,7 @@ export default class StringStore extends Store {
 
   public _oneOf: Array<string | null> = []
 
-  public constructor(str: string | null | Array<string | null> = '', defVal?: 0 | -1 | string) {
+  public constructor(str: string | null | Array<string | null> = '', defVal?: number | string) {
     super()
     if (isArray(str)) {
       let val = null

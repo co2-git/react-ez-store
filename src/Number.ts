@@ -20,7 +20,7 @@ export default class NumberStore extends Store {
 
   public _oneOf: NumberStoreValue[] = []
 
-  public constructor(num: NumberStoreValue | NumberStoreValue[] = 0, defaultValue?: 'first' | 'last' | number) {
+  public constructor(num: NumberStoreValue | NumberStoreValue[] = 0, defaultValue?: string | number) {
     super()
     if (isArray(num)) {
       let val: NumberStoreValue = null
