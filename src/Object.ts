@@ -1,3 +1,5 @@
+import { get, set } from 'lodash'
+
 import Store from './Store'
 
 type ObjectStoreValue<T> = | T | {} | null
@@ -42,5 +44,15 @@ export default class ObjectStore<T> extends Store {
       ...(obj as object),
     }
     await this.update()
+  }
+
+  public getKey = (key: string, defaultValue?: any) => get(this.value, key, defaultValue)
+
+  public setKey = async (key: string, val: any) => {
+    const { value } = this
+    if (value) {
+      set(value as object, key, val)
+      await this.update()
+    }
   }
 }
