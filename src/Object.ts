@@ -2,7 +2,7 @@ import { get, set } from 'lodash'
 
 import Store from './Store'
 
-export default class ObjectStore<T extends { [a: string]: any }> extends Store {
+export default class ObjectStore<T extends object> extends Store {
   public original: T
 
   public value: T
