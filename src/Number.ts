@@ -1,51 +1,17 @@
-import first from 'lodash.first'
-import last from 'lodash.last'
-import includes from 'lodash.includes'
-import isArray from 'lodash.isarray'
-import isNumber from 'lodash.isnumber'
-
 import Store from './Store'
 
-type NumberStoreValue = number | null
-
-export type NumberStoreType = { value: NumberStoreValue }
-
 export default class NumberStore extends Store {
-  public static USE_FIRST = 'first'
-  public static USE_LAST = 'last'
+  public original: number
 
-  public original: NumberStoreValue
+  public value: number
 
-  public value: NumberStoreValue
-
-  public _oneOf: NumberStoreValue[] = []
-
-  public constructor(num: NumberStoreValue | NumberStoreValue[] = 0, defaultValue?: string | number) {
+  public constructor(num: number = 0) {
     super()
-    if (isArray(num)) {
-      let val: NumberStoreValue = null
-      if (defaultValue === NumberStore.USE_FIRST) {
-        val = first(num) || null
-      } else if (defaultValue === NumberStore.USE_LAST) {
-        val = last(num) || null
-      } else if (isNumber(defaultValue)) {
-        val = defaultValue
-      }
-      this.original = val
-      this.value = val
-      this.oneOf(...num)
-    } else {
-      this.original = num
-      this.value = num
-    }
+    this.original = num
+    this.value = num
   }
 
-  public oneOf = (...args: Array<number | null>) => {
-    this._oneOf = args
-    return this
-  }
-
-  public is = (val: number | null) => this.get() === val
+  public is = (val: number) => this.get() === val
 
   public reset = async () => {
     this.value = this.original
@@ -54,12 +20,7 @@ export default class NumberStore extends Store {
 
   public get = () => this.value
 
-  public isNull = () => this.value === null
-
   public set = async (num: number) => {
-    if (this._oneOf.length && !includes(this._oneOf, num)) {
-      throw new Error(`Number ${ num } is not in list ${ this._oneOf.join(' ') }`)
-    }
     this.value = num
     await this.update()
   }
@@ -69,30 +30,22 @@ export default class NumberStore extends Store {
   }
 
   public add = async (step: number = 1) => {
-    if (typeof this.value === 'number') {
-      this.value = this.value + step
-      await this.update()
-    }
+    this.value = this.value + step
+    await this.update()
   }
 
   public subtract = async (step: number = 1) => {
-    if (typeof this.value === 'number') {
-      this.value = this.value - step
-      await this.update()
-    }
+    this.value = this.value - step
+    await this.update()
   }
 
   public multiply = async (step: number) => {
-    if (typeof this.value === 'number') {
-      this.value = this.value * step
-      await this.update()
-    }
+    this.value = this.value * step
+    await this.update()
   }
 
   public divide = async (step: number) => {
-    if (typeof this.value === 'number') {
-      this.value = this.value / step
-      await this.update()
-    }
+    this.value = this.value / step
+    await this.update()
   }
 }

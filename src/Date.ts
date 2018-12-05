@@ -1,40 +1,20 @@
-import Store from './Store'
+import ObjectStore from './Object';
 
-type DateStoreValue = Date | null
+export type DateStoreType = { value: Date }
 
-export type DateStoreType = { value: DateStoreValue }
+export default class DateStore extends ObjectStore<Date> {
+  public original: Date
 
-export default class DateStore extends Store {
-  public original: DateStoreValue
+  public value: Date
 
-  public value: DateStoreValue
-
-  public constructor(date: DateStoreValue = null) {
-    super()
+  public constructor(date: Date = new Date()) {
+    super(date)
     this.original = date
     this.value = date
   }
 
   public reset = async () => {
-    this.value = this.original
-    await this.update()
-  }
-
-  public isDate = () => (this.value instanceof Date)
-
-  public get = () => this.value
-
-  public set = async (date: Date) => {
-    this.value = date
-    await this.update()
-  }
-
-  public replace = async (date: Date) => {
-    this.value = date
-  }
-
-  public unset = async () => {
-    this.value = null
+    this.value = new Date(this.original)
     await this.update()
   }
 }

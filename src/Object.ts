@@ -2,22 +2,15 @@ import { get, set } from 'lodash'
 
 import Store from './Store'
 
-type ObjectStoreValue<T> = | T | {} | null
+export default class ObjectStore<T extends { [a: string]: any }> extends Store {
+  public original: T
 
-export default class ObjectStore<T> extends Store {
-  public original: ObjectStoreValue<T>
+  public value: T
 
-  public value: ObjectStoreValue<T>
-
-  public constructor(obj: ObjectStoreValue<T> = {}) {
+  public constructor(obj: T = {} as T) {
     super()
-    if (obj === null) {
-      this.original = null
-      this.value = null
-    } else {
-      this.original = { ...Object(obj) }
-      this.value = { ...Object(obj) }
-    }
+    this.original = { ...Object(obj) }
+    this.value = { ...Object(obj) }
   }
 
   public reset = async () => {
@@ -26,8 +19,6 @@ export default class ObjectStore<T> extends Store {
   }
 
   public get = () => this.value
-
-  public isNull = () => this.value === null
 
   public replace = async (obj: T) => {
     this.value = obj
@@ -42,7 +33,7 @@ export default class ObjectStore<T> extends Store {
     this.value = {
       ...(this.value as object),
       ...(obj as object),
-    }
+    } as T
     await this.update()
   }
 

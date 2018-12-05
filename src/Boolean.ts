@@ -1,7 +1,5 @@
 import Store from './Store'
 
-export type BooleanStoreType = { value: boolean }
-
 export default class BooleanStore extends Store {
   public original: boolean
 
@@ -18,8 +16,6 @@ export default class BooleanStore extends Store {
     await this.update()
   }
 
-  public isNull = () => this.value === null
-
   public get = () => this.value
 
   public set = async (bool: boolean) => {
@@ -35,4 +31,8 @@ export default class BooleanStore extends Store {
     this.value = !this.value
     await this.update()
   }
+
+  public isTrue = () => this.value === true
+
+  public isFalse = () => this.value === false
 }
