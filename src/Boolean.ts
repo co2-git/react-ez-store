@@ -5,10 +5,11 @@ export default class BooleanStore extends Store {
 
   public value: boolean
 
-  public constructor(bool: boolean = true) {
+  public constructor(bool: any = true) {
     super()
-    this.original = bool
-    this.value = bool
+    const toBool = Boolean(bool)
+    this.original = toBool
+    this.value = toBool
   }
 
   public reset = async () => {

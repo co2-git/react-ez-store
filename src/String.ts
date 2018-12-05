@@ -1,11 +1,11 @@
 import Store from './Store'
 
-export default class StringStore extends Store {
-  public original: string
+export default class StringStore<S extends string = string> extends Store {
+  public original: S
 
-  public value: string
+  public value: S
 
-  public constructor(str: string = '') {
+  public constructor(str: S = '' as S) {
     super()
     this.original = str
     this.value = str
@@ -16,16 +16,16 @@ export default class StringStore extends Store {
     await this.update()
   }
 
-  public is = (val: string) => this.get() === val
+  public is = (val: S) => this.get() === val
 
   public get = () => this.value
 
-  public set = async (str: string) => {
+  public set = async (str: S) => {
     this.value = str
     await this.update()
   }
 
-  public replace = async (str: string) => {
+  public replace = async (str: S) => {
     this.value = str
   }
 }

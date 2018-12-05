@@ -30,22 +30,22 @@ export default class NumberStore extends Store {
   }
 
   public add = async (step: number = 1) => {
-    this.value = this.value + step
+    this.value = (this.value + step)
     await this.update()
   }
 
   public subtract = async (step: number = 1) => {
-    this.value = this.value - step
+    this.value = (this.value - step)
     await this.update()
   }
 
   public multiply = async (step: number) => {
-    this.value = this.value * step
+    this.value = (this.value * step)
     await this.update()
   }
 
   public divide = async (step: number) => {
-    this.value = this.value / step
+    this.value = (this.value / step)
     await this.update()
   }
 }
