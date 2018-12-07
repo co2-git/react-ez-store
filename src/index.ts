@@ -8,7 +8,7 @@ import set from 'lodash.set'
 export { default as withStore } from './withStore'
 import Store from './Store'
 
-export class ArrayStoreClass<T> extends Store {
+export class ArrayStore<T> extends Store {
   public original: T[]
   public value: T[]
   public constructor(array: T[] = []) {
@@ -18,7 +18,7 @@ export class ArrayStoreClass<T> extends Store {
   }
 }
 
-export class BooleanStoreClass extends Store {
+export class BooleanStore extends Store {
   public original: boolean
   public value: boolean
   public constructor(bool: any = false) {
@@ -29,7 +29,7 @@ export class BooleanStoreClass extends Store {
   }
 }
 
-export class DateStoreClass extends Store {
+export class DateStore extends Store {
   public original: Date
   public value: Date
   public constructor(date: Date = new Date()) {
@@ -39,7 +39,7 @@ export class DateStoreClass extends Store {
   }
 }
 
-export class ErrorStoreClass extends Store {
+export class ErrorStore extends Store {
   public original: Error
   public value: Error
   public constructor(error: Error = new Error()) {
@@ -49,7 +49,7 @@ export class ErrorStoreClass extends Store {
   }
 }
 
-export class NumberStoreClass extends Store {
+export class NumberStore extends Store {
   public original: number
   public value: number
   public constructor(num: any = 0) {
@@ -59,7 +59,7 @@ export class NumberStoreClass extends Store {
   }
 }
 
-export class ObjectStoreClass<T extends object> extends Store {
+export class ObjectStore<T extends object> extends Store {
   public original: T
   public value: T
   public constructor(obj: T = {} as T) {
@@ -69,7 +69,7 @@ export class ObjectStoreClass<T extends object> extends Store {
   }
 }
 
-export class StringStoreClass extends Store {
+export class StringStore extends Store {
   public original: string
   public value: string
   public constructor(str: any = '' as string) {
@@ -80,30 +80,30 @@ export class StringStoreClass extends Store {
 }
 
 type StoreValueType =
-  | ArrayStoreClass<any>
-  | BooleanStoreClass
-  | DateStoreClass
-  | ErrorStoreClass
-  | NumberStoreClass
-  | ObjectStoreClass<any>
-  | StringStoreClass
+  | ArrayStore<any>
+  | BooleanStore
+  | DateStore
+  | ErrorStore
+  | NumberStore
+  | ObjectStore<any>
+  | StringStore
 
-declare function getStore(stored: NumberStoreClass): number
-declare function getStore(stored: BooleanStoreClass): boolean
-declare function getStore(stored: DateStoreClass): Date
-declare function getStore(stored: ErrorStoreClass): Error
-declare function getStore(stored: StringStoreClass): string
-declare function getStore<T>(stored: ArrayStoreClass<T>): T[]
-declare function getStore<T extends object>(stored: ObjectStoreClass<T>): T
+declare function getStore(stored: NumberStore): number
+declare function getStore(stored: BooleanStore): boolean
+declare function getStore(stored: DateStore): Date
+declare function getStore(stored: ErrorStore): Error
+declare function getStore(stored: StringStore): string
+declare function getStore<T>(stored: ArrayStore<T>): T[]
+declare function getStore<T extends object>(stored: ObjectStore<T>): T
 
 interface StoreType {
-  Array: <T>(array?: T[]) => ArrayStoreClass<T>
-  Boolean: (bool?: any) => BooleanStoreClass
-  Date: (date?: Date) => DateStoreClass
-  Error: (error?: Error) => ErrorStoreClass
-  Number: (num?: any) => NumberStoreClass
-  Object: <T extends object>(obj?: T) => ObjectStoreClass<T>
-  String: (str?: any) => StringStoreClass
+  Array: <T>(array?: T[]) => ArrayStore<T>
+  Boolean: (bool?: any) => BooleanStore
+  Date: (date?: Date) => DateStore
+  Error: (error?: Error) => ErrorStore
+  Number: (num?: any) => NumberStore
+  Object: <T extends object>(obj?: T) => ObjectStore<T>
+  String: (str?: any) => StringStore
 
   array: StoreType["Array"]
   boolean: StoreType["Boolean"]
@@ -127,45 +127,45 @@ interface StoreType {
 
   reset: (stored: StoreValueType) => Promise<void>
 
-  increment: (stored: NumberStoreClass, step?: number) => Promise<void>
+  increment: (stored: NumberStore, step?: number) => Promise<void>
 
-  decrement: (stored: NumberStoreClass, step?: number) => Promise<void>
+  decrement: (stored: NumberStore, step?: number) => Promise<void>
 
-  multiply: (stored: NumberStoreClass, step: number) => Promise<void>
+  multiply: (stored: NumberStore, step: number) => Promise<void>
 
-  divide: (stored: NumberStoreClass, step: number) => Promise<void>
+  divide: (stored: NumberStore, step: number) => Promise<void>
 
-  isTrue: (stored: BooleanStoreClass) => boolean
+  isTrue: (stored: BooleanStore) => boolean
 
-  isFalse: (stored: BooleanStoreClass) => boolean
+  isFalse: (stored: BooleanStore) => boolean
 
-  toggle: (stored: BooleanStoreClass) => Promise<void>
+  toggle: (stored: BooleanStore) => Promise<void>
 
-  push: <T>(stored: ArrayStoreClass<T>, ...items: T[]) => Promise<void>
+  push: <T>(stored: ArrayStore<T>, ...items: T[]) => Promise<void>
 
-  pop: <T>(stored: ArrayStoreClass<T>) => Promise<void>
+  pop: <T>(stored: ArrayStore<T>) => Promise<void>
 
-  shift: <T>(stored: ArrayStoreClass<T>) => Promise<void>
+  shift: <T>(stored: ArrayStore<T>) => Promise<void>
 
-  map: <T>(stored: ArrayStoreClass<T>, predicator: (item: T, index: number, items: T[]) => T) => Promise<void>
+  map: <T>(stored: ArrayStore<T>, predicator: (item: T, index: number, items: T[]) => T) => Promise<void>
 
-  filter: <T>(stored: ArrayStoreClass<T>, predicator: (item: T, index: number, items: T[]) => boolean) => Promise<void>
+  filter: <T>(stored: ArrayStore<T>, predicator: (item: T, index: number, items: T[]) => boolean) => Promise<void>
 
-  getByKey: <T extends object>(stored: ObjectStoreClass<T>, key: string, defaultValue?: any) => any
+  getByKey: <T extends object>(stored: ObjectStore<T>, key: string, defaultValue?: any) => any
 
-  setByKey: <T extends object>(stored: ObjectStoreClass<T>, key: string, value: any) => Promise<void>
+  setByKey: <T extends object>(stored: ObjectStore<T>, key: string, value: any) => Promise<void>
 
-  extend: <T extends object>(stored: ObjectStoreClass<T>, object: T) => Promise<void>
+  extend: <T extends object>(stored: ObjectStore<T>, object: T) => Promise<void>
 
 }
 
-const makeArray = <T>(array?: T[]) => new ArrayStoreClass<T>(array)
-const makeBool = (bool?: any) => new BooleanStoreClass(bool)
-const makeDate = (date?: Date) => new DateStoreClass(date)
-const makeErr = (error?: Error) => new ErrorStoreClass(error)
-const makeNum = (num?: any) => new NumberStoreClass(num)
-const makeObj = <T extends object>(obj?: T) => new ObjectStoreClass<T>(obj)
-const makeStr = (str?: any) => new StringStoreClass(str)
+const makeArray = <T>(array?: T[]) => new ArrayStore<T>(array)
+const makeBool = (bool?: any) => new BooleanStore(bool)
+const makeDate = (date?: Date) => new DateStore(date)
+const makeErr = (error?: Error) => new ErrorStore(error)
+const makeNum = (num?: any) => new NumberStore(num)
+const makeObj = <T extends object>(obj?: T) => new ObjectStore<T>(obj)
+const makeStr = (str?: any) => new StringStore(str)
 
 const store: StoreType = {
   Array: makeArray,
@@ -190,16 +190,16 @@ const store: StoreType = {
   text: makeStr,
 
   get: (stored: StoreValueType) => {
-    if (stored instanceof ArrayStoreClass) {
+    if (stored instanceof ArrayStore) {
       return [...stored.value]
     }
     if (
-      stored instanceof BooleanStoreClass ||
-      stored instanceof DateStoreClass ||
-      stored instanceof ErrorStoreClass ||
-      stored instanceof NumberStoreClass ||
-      stored instanceof StringStoreClass ||
-      stored instanceof ObjectStoreClass
+      stored instanceof BooleanStore ||
+      stored instanceof DateStore ||
+      stored instanceof ErrorStore ||
+      stored instanceof NumberStore ||
+      stored instanceof StringStore ||
+      stored instanceof ObjectStore
     ) {
       return stored.value
     }
@@ -209,7 +209,7 @@ const store: StoreType = {
   is: (stored: StoreValueType, value: any) => isEqual(store.get(stored), value),
 
   set: async (stored: StoreValueType, setter: any) => {
-    if (stored instanceof ArrayStoreClass && !isArray(setter)) {
+    if (stored instanceof ArrayStore && !isArray(setter)) {
       throw new Error('Can only set arrays. Use push if you want to add an item')
     }
     stored.value = setter
@@ -219,61 +219,61 @@ const store: StoreType = {
     stored.value = stored.original
   },
 
-  increment: async (stored: NumberStoreClass, step: number = 1) => {
+  increment: async (stored: NumberStore, step: number = 1) => {
     await store.set(stored, store.get(stored) + step)
   },
 
-  decrement: async (stored: NumberStoreClass, step: number = 1) => {
+  decrement: async (stored: NumberStore, step: number = 1) => {
     await store.set(stored, store.get(stored) - step)
   },
 
-  multiply: async (stored: NumberStoreClass, step: number) => {
+  multiply: async (stored: NumberStore, step: number) => {
     await store.set(stored, store.get(stored) * step)
   },
 
-  divide: async (stored: NumberStoreClass, step: number) => {
+  divide: async (stored: NumberStore, step: number) => {
     await store.set(stored, store.get(stored) / step)
   },
 
-  isTrue: (stored: BooleanStoreClass) => stored.value === true,
+  isTrue: (stored: BooleanStore) => stored.value === true,
 
-  isFalse: (stored: BooleanStoreClass) => stored.value === false,
+  isFalse: (stored: BooleanStore) => stored.value === false,
 
-  toggle: (stored: BooleanStoreClass) => store.set(stored, !store.get(stored)),
+  toggle: (stored: BooleanStore) => store.set(stored, !store.get(stored)),
 
-  push: <T>(stored: ArrayStoreClass<T>, ...items: T[]) => store.set(
+  push: <T>(stored: ArrayStore<T>, ...items: T[]) => store.set(
     stored,
     [...store.get(stored), ...items],
   ),
 
-  pop: async <T>(stored: ArrayStoreClass<T>) => {
+  pop: async <T>(stored: ArrayStore<T>) => {
     const arr = [...store.get(stored)]
     arr.pop()
     await store.set(stored, arr)
   },
 
-  shift: async <T>(stored: ArrayStoreClass<T>) => {
+  shift: async <T>(stored: ArrayStore<T>) => {
     const arr = [...store.get(stored)]
     arr.shift()
     await store.set(stored, arr)
   },
 
-  map: <T>(stored: ArrayStoreClass<T>, predicator: (item: T, index: number, items: T[]) => T) =>
+  map: <T>(stored: ArrayStore<T>, predicator: (item: T, index: number, items: T[]) => T) =>
     store.set(stored, map(store.get(stored), predicator)),
 
-  filter: <T>(stored: ArrayStoreClass<T>, predicator: (item: T, index: number, items: T[]) => boolean) =>
+  filter: <T>(stored: ArrayStore<T>, predicator: (item: T, index: number, items: T[]) => boolean) =>
     store.set(stored, filter(store.get(stored), predicator)),
 
-  getByKey: <T extends object>(stored: ObjectStoreClass<T>, key: string, defaultValue?: any) =>
+  getByKey: <T extends object>(stored: ObjectStore<T>, key: string, defaultValue?: any) =>
     get(store.get(stored), key, defaultValue),
 
-  setByKey: async <T extends object>(stored: ObjectStoreClass<T>, key: string, value: any) => {
+  setByKey: async <T extends object>(stored: ObjectStore<T>, key: string, value: any) => {
     const obj = { ...store.get(stored) }
     set(obj, key, value)
     await store.set(stored, obj)
   },
 
-  extend: <T extends object>(stored: ObjectStoreClass<T>, object: T) => store.set(
+  extend: <T extends object>(stored: ObjectStore<T>, object: T) => store.set(
     stored,
     { ...store.get(stored), ...object }
   )
