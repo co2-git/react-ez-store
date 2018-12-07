@@ -1,7 +1,7 @@
 react-store
 ===
 
-Easily share data across different React components. Like Redux or mobx, but dead simpler!
+React store
 
 # Install
 
@@ -19,14 +19,52 @@ npm i -S @francoisv/react-store
 import React from 'react'
 import store, { withStore } from '@francoisv/react-store'
 
-const email = store(String)
+const todos = store.Array('Buy milk')
 
-const View = withStore(email)(() => (
-  <input
-    value={ email.get() }
-    onChange={ event => email.set(event.target.value )}
-  />
+const AddTodo = withStore({ name: store.String })((props) => (
+  <form>
+    <input
+      value={ store.get(props.name) }
+      onChange={ (event) => store.set(props.name, event.target.value) }
+    />
+    <button onClick={ () => store.push(todos, props.name) }>
+      Add
+    </button>
+  </form>
 ))
+
+const Todo = withStore(props => ({ todo }))((props) => (
+  <div>
+    <input type="checkbox" onChange={ () => store.filter(todos, todo !== props.todo) } />
+    <input
+      value={ store.get(props.todo) }
+      onChange={ event => store.set(props.todo, event.target.value) }
+    />
+  </div>
+))
+
+const List = withStore(todos)(() => (
+  <ul>
+    { store.get(todos).map(todo => (
+      <li key={ todo }>
+        <Todo todo={ todo } />
+      </li>
+    )) }
+  </ul>
+))
+
+return (
+  <div>
+    <AddTodo />
+    <ul>
+      { store.get(todos).map(todo => (
+        <li key={ todo }>
+          <Todo todo={ todo } />
+        </li>
+      )) }
+    </ul>
+  </div>
+)
 ```
 
 ## Encapsulate store
@@ -37,12 +75,12 @@ Pass functions to derive store from props or to create a local scope.
 import React from 'react'
 import store, { withStore } from '@francoisv/react-store'
 
-const connector = props => ({ open: store(Boolean, props.active) })
+const connector = props => ({ open: store.Boolean(props.active) })
 
 const View = withStore(connector)(({ open }) => (
   <input
-    checked={ open.get() }
-    onChange={ open.toggle }
+    checked={ store.get(open)) }
+    onChange={ () => store.toggle(open) }
   />
 ))
 ```
@@ -55,12 +93,12 @@ const View = withStore(connector)(({ open }) => (
 import React from 'react'
 import store, { withStore } from '@francoisv/react-store'
 
-const counter = store(Number)
+const counter = store.Number
 
 const ClickCounter = withStore(counter)(() => (
   <div>
-    <div>Clicked { counter.get() } times</div>
-    <button onClick={ counter.add }>Click</button>
+    <div>Clicked { store.get(counter) } times</div>
+    <button onClick={ () => store.increment(counter) }>Click</button>
   </div>
 ))
 ```
@@ -71,14 +109,22 @@ const ClickCounter = withStore(counter)(() => (
 import React from 'react'
 import store, { withStore } from '@francoisv/react-store'
 
-const token = store(String, localStorage.getItem('TOKEN'))
+const token = store.String(localStorage.getItem('TOKEN'))
 
-const App = withStore(token)(() => (
-  <div>
-    { !token.get() && <Login /> }
-    { !!token.get() && <button onClick={ token.reset }>Sign out</button> }
-  </div>
-))
+const App = withStore(token)(() => {
+  const tokenValue = store.get(token)
+
+  return (
+    <div>
+      { !tokenValue && <Login /> }
+      { !!tokenValue && (
+        <button onClick={ () => store.reset(token) }>
+          Sign out
+        </button>
+      ) }
+    </div>
+  )
+})
 ```
 
 ## Todo App
@@ -91,16 +137,16 @@ let id = 0
 
 // The stores
 
-const todos = store(Array, [{ id, name: 'Buy milk' }])
-const newTodo = store(String)
-const editableTodo = props => ({ name: store(String, props.todo.name) } )
+const todos = store.Array([{ id, name: 'Buy milk' }])
+const newTodo = store.String
+const editableTodo = props => ({ name: String.store(props.todo.name) } )
 
 // The actions
 
-const addTodo = name => todos.push({ id: ++id, name })
+const addTodo = name => store.push(todos, { id: ++id, name })
 
 const saveTodo = (todoId, name) => {
-  await todos.map(todo => {
+  await store.map(todos, todo => {
     if (todo.id === todoId) {
       return { ...todo, name }
     }
@@ -109,7 +155,7 @@ const saveTodo = (todoId, name) => {
 }
 
 const deleteTodo = async (todoId) => {
-  await todos.filter(todo => todo.id !== todoId)
+  await store.filter(todos, todo => todo.id !== todoId)
 }
 
 // The views
