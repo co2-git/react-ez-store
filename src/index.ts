@@ -8,7 +8,7 @@ import set from 'lodash.set'
 export { default as withStore } from './withStore'
 import Store from './Store'
 
-class ArrayStoreClass<T> extends Store {
+export class ArrayStoreClass<T> extends Store {
   public original: T[]
   public value: T[]
   public constructor(array: T[] = []) {
@@ -18,7 +18,7 @@ class ArrayStoreClass<T> extends Store {
   }
 }
 
-class BooleanStoreClass extends Store {
+export class BooleanStoreClass extends Store {
   public original: boolean
   public value: boolean
   public constructor(bool: any = false) {
@@ -29,7 +29,7 @@ class BooleanStoreClass extends Store {
   }
 }
 
-class DateStoreClass extends Store {
+export class DateStoreClass extends Store {
   public original: Date
   public value: Date
   public constructor(date: Date = new Date()) {
@@ -39,7 +39,7 @@ class DateStoreClass extends Store {
   }
 }
 
-class ErrorStoreClass extends Store {
+export class ErrorStoreClass extends Store {
   public original: Error
   public value: Error
   public constructor(error: Error = new Error()) {
@@ -49,7 +49,7 @@ class ErrorStoreClass extends Store {
   }
 }
 
-class NumberStoreClass extends Store {
+export class NumberStoreClass extends Store {
   public original: number
   public value: number
   public constructor(num: any = 0) {
@@ -59,7 +59,7 @@ class NumberStoreClass extends Store {
   }
 }
 
-class ObjectStoreClass<T extends object> extends Store {
+export class ObjectStoreClass<T extends object> extends Store {
   public original: T
   public value: T
   public constructor(obj: T = {} as T) {
