@@ -69,7 +69,7 @@ export class ObjectStoreClass<T extends object> extends Store {
   }
 }
 
-class StringStoreClass extends Store {
+export class StringStoreClass extends Store {
   public original: string
   public value: string
   public constructor(str: any = '' as string) {
