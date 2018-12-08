@@ -151,6 +151,8 @@ interface StoreType {
 
   filter: <T>(stored: ArrayStore<T>, predicator: (item: T, index: number, items: T[]) => boolean) => Promise<void>
 
+  getAt: <T>(stored: ArrayStore<T>, index: number) => T
+
   getByKey: <T extends object>(stored: ObjectStore<T>, key: string, defaultValue?: any) => any
 
   setByKey: <T extends object>(stored: ObjectStore<T>, key: string, value: any) => Promise<void>
@@ -263,6 +265,8 @@ const store: StoreType = {
 
   filter: <T>(stored: ArrayStore<T>, predicator: (item: T, index: number, items: T[]) => boolean) =>
     store.set(stored, filter(store.get(stored), predicator)),
+
+  getAt: <T>(stored: ArrayStore<T>, index: number) => store.get(stored)[index],
 
   getByKey: <T extends object>(stored: ObjectStore<T>, key: string, defaultValue?: any) =>
     get(store.get(stored), key, defaultValue),
