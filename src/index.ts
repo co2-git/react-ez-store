@@ -159,6 +159,8 @@ interface StoreType {
 
   extend: <T extends object>(stored: ObjectStore<T>, object: T) => Promise<void>
 
+  getMessage: (stored: ErrorStore) => string
+
 }
 
 const makeArray = <T>(array?: T[]) => new ArrayStore<T>(array)
@@ -215,10 +217,12 @@ const store: StoreType = {
       throw new Error('Can only set arrays. Use push if you want to add an item')
     }
     stored.value = setter
+    await stored.update()
   },
 
   reset: async (stored: StoreValueType) => {
     stored.value = stored.original
+    await stored.update()
   },
 
   increment: async (stored: NumberStore, step: number = 1) => {
@@ -280,7 +284,9 @@ const store: StoreType = {
   extend: <T extends object>(stored: ObjectStore<T>, object: T) => store.set(
     stored,
     { ...store.get(stored), ...object }
-  )
+  ),
+
+  getMessage: (stored: ErrorStore) => store.getByKey(stored, 'message')
 
 }
 
