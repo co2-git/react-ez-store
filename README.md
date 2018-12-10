@@ -13,7 +13,23 @@ yarn add @francoisv/react-store
 npm i -S @francoisv/react-store
 ```
 
-# Todos
+# Usage
+
+```jsx
+import React from 'react'
+import store, { withStore } from '@francoisv/react-store'
+
+const counter = store.number(0)
+
+const ClickCounter = withStore(counter)(() => (
+  <div>
+    <div>Clicked { store.get(counter) }</div>
+    <button onClick={ () => store.increment(counter) }>Click</button>
+  </div>
+))
+```
+
+# Todos Example
 
 First, let's get our dependencies:
 
@@ -87,9 +103,7 @@ Let's say we want to edit the todo. Let's level our Todo component. We'll use th
 
 
 ```jsx
-const state = props => ({ nextTodo: store.string() }) 
-
-const Todo = props => {
+const Todo = withStore(props => ({ nextTodo: store.string() }))(props => {
   const onSave = () => store.map(
     todos,
     todo => {
@@ -116,6 +130,6 @@ const Todo = props => {
       </button>
     </div>
   )
-}
+})
 ```
 
