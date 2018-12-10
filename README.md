@@ -30,3 +30,4 @@ const ClickCounter = withStore(counter)(() => (
 ```
 
 More examples in the [wiki](https://github.com/co2-git/react-ez-store/wiki)
+
